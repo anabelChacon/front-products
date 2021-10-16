@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { finalize } from 'rxjs/operators';
 import { ProductRegisterComponent } from './components/product-register/product-register.component';
 import { Product } from './interfaces/product-interface';
-import { ProductsService } from './services/products-service.service';
+import { ProductsService } from './services/products.service';
 import { Actions } from './shared/enums/action-product.enum';
 
 @Component({

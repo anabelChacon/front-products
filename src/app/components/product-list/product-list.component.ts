@@ -31,6 +31,8 @@ export class ProductListComponent implements OnInit {
   }
 
   openImageProduct(productItem: Product): void {
+    if (productItem.media_type === 'video') return;
+
     this.dialog.open(DialogProductComponent, {
       panelClass: 'custom-dialog-container',
       data: { product: productItem },

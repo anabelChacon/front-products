@@ -10,14 +10,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import localeEn from '@angular/common/locales/en';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DialogProductComponent } from './components/dialog-product/dialog-product.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductRegisterComponent } from './components/product-register/product-register.component';
-import { ProductsService } from './services/products-service.service';
+import { ProductsService } from './services/products.service';
 import { LazyLoadImageComponent } from './components/lazy-load-image/lazy-load-image.component';
 import { SafePipe } from './pipes/safe.pipe';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeEn, 'en');
 
 @NgModule({
   declarations: [
