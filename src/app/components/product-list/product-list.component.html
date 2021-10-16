@@ -1,0 +1,27 @@
+<div class="card" *ngFor="let product of productList; let i = index">
+  <div
+    class="container-resource"
+    tappable
+    (click)="openDetailProduct(product, i)"
+  >
+    <app-lazy-load-image
+      [url]="product.url"
+      [sizeClass]="'size-small'"
+    ></app-lazy-load-image>
+  </div>
+  <div class="container-description">
+    <div class="container-info-edit">
+      <div>
+        <span class="date">{{ product.date | date: "dd/MM/yyyy" }}</span>
+        <p class="autor">{{ product.copyright }}</p>
+      </div>
+      <div tappable (click)="openDetailProduct(product, i, true)">
+        <button mat-icon-button class="edit-button">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <p class="title">{{ product.title }}</p>
+  </div>
+</div>

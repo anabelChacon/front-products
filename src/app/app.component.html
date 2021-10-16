@@ -1,0 +1,20 @@
+<div class="toolbar" role="banner">
+  <img width="40" alt="App Logo" src="assets/imgs/logo.jpg" />
+  <span>ProductAp</span>
+  <div class="spacer"></div>
+  <button mat-icon-button (click)="addNewProduct()">
+    <mat-icon>add_shopping_cart</mat-icon>
+  </button>
+</div>
+
+<div class="content" role="main">
+  <h2>Listado de Productos</h2>
+  <p>Empieza a gestionar tus productos</p>
+
+  <app-product-list
+    class="card-container"
+    [productList]="products"
+    (action)="manageActionProduct($event)"
+  ></app-product-list>
+  <router-outlet></router-outlet>
+</div>

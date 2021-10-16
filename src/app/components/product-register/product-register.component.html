@@ -1,0 +1,50 @@
+<form [formGroup]="form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Fecha de descubrimiento</mat-label>
+    <input
+      matInput
+      formControlName="date"
+      type="date"
+      [(ngModel)]="newProduct.date"
+    />
+  </mat-form-field>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Copyright</mat-label>
+    <input
+      matInput
+      formControlName="copyright"
+      [(ngModel)]="newProduct.copyright"
+    />
+  </mat-form-field>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Descripción</mat-label>
+    <input matInput formControlName="title" [(ngModel)]="newProduct.title" />
+  </mat-form-field>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Imagen</mat-label>
+    <input matInput formControlName="hdurl" [(ngModel)]="newProduct.hdurl" />
+  </mat-form-field>
+</form>
+
+<div class="footer-actions">
+  <button mat-button [mat-dialog-close]>Cancelar</button>
+
+  <button
+    *ngIf="!create"
+    [disabled]="!form.valid"
+    (click)="manageAction()"
+    mat-button
+    color="primary"
+  >
+    Guardar
+  </button>
+  <button
+    *ngIf="create"
+    [disabled]="!form.valid"
+    [mat-dialog-close]="newProduct"
+    mat-button
+    color="primary"
+  >
+    Crear
+  </button>
+</div>

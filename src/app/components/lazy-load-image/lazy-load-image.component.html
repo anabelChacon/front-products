@@ -1,0 +1,9 @@
+<img
+  [class]="sizeClass"
+  [src]="url"
+  (load)="endLoad = true"
+  (error)="handleImageError($event)"
+  [hidden]="!endLoad"
+/>
+<mat-spinner [class]="sizeClass" [hidden]="endLoad"></mat-spinner>
+<!-- <img [class]="sizeClass" [src]="urlDefault" [hidden]="endLoad" /> -->

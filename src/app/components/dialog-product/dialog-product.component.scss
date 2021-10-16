@@ -1,0 +1,22 @@
+.container {
+  position: relative;
+  width: 100% !important;
+  height: 100% !important;
+
+  .close-button {
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    .mat-icon {
+      color: white;
+    }
+  }
+    
+    img {
+        height: 100%;
+        display: block;
+        margin: auto;
+        object-fit: contain;
+    }
+  }
