@@ -13,6 +13,7 @@ import { Actions } from './shared/enums/action-product.enum';
 })
 export class AppComponent implements OnInit {
   products: any;
+  emptyProducts: boolean = false;
   loading: boolean = true;
   newProduct = {
     action: Actions.CREATE,
@@ -41,18 +42,23 @@ export class AppComponent implements OnInit {
       .getProducts()
       .pipe(
         finalize(() => {
-          console.error('finalize');
           this.loading = false;
         })
       )
-      .subscribe((response: Product[]) => {
-        this.products = response;
-        console.warn(this.products);
-      });
+      .subscribe(
+        (response: Product[]) => {
+          this.products = response;
+          this.emptyProducts = false;
+        },
+        (error) => {
+          this.products = null;
+          this.loading = false;
+          this.emptyProducts = true;
+        }
+      );
   }
 
   formProduct(config: any) {
-    console.log('añadir producto nuevo!');
     const dialogRef = this.dialog.open(ProductRegisterComponent, {
       panelClass: 'custom-dialog-container-edit',
       data: config,

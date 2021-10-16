@@ -22,6 +22,11 @@
 
   <mat-spinner *ngIf="loading"></mat-spinner>
 
+  <div class="container-empty-results" *ngIf="emptyProducts">
+    <p>No se han encontrado productos.</p>
+    <p>Vuelve a intentarlo en unos minutos.</p>
+  </div>
+
   <app-product-list
     class="card-container"
     [productList]="products"
