@@ -13,26 +13,14 @@ import { Product } from 'src/app/interfaces/product-interface';
 })
 export class DialogProductComponent implements OnInit {
   product: any;
-  edit: boolean = false;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<DialogProductComponent>
-  ) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit(): void {
-    this.product = this.data.productItem;
-    this.edit = this.data.edit;
+    this.product = this.data.product;
   }
 
   handleImageError(event: any): void {
     event.target.src = 'assets/imgs/error-image-generic.png';
-  }
-
-  onManageAction(event?: any) {
-    if (event) {
-      this.product = event.product;
-      this.dialogRef.close(this.product);
-    }
   }
 }

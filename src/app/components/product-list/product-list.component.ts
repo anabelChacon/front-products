@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Product } from 'src/app/interfaces/product-interface';
+import { Actions } from 'src/app/shared/enums/action-product.enum';
 import { DialogProductComponent } from '../dialog-product/dialog-product.component';
 
 @Component({
@@ -16,22 +17,23 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  openDetailProduct(
+  onActionProductEmit(
     productItem: Product,
     position: number,
     edit?: boolean
   ): void {
-    console.log('productItem => ', productItem);
-    this.action.emit({ productItem, position, edit });
-    /* const dialogRef = this.dialog.open(DialogProductComponent, {
-      panelClass: !edit
-        ? 'custom-dialog-container'
-        : 'custom-dialog-container-edit',
-      data: { productItem, edit },
+    this.action.emit({
+      action: Actions.UPDATE,
+      product: productItem,
+      position,
+      edit,
     });
+  }
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) this.productList[position] = result;
-    }); */
+  openImageProduct(productItem: Product): void {
+    this.dialog.open(DialogProductComponent, {
+      panelClass: 'custom-dialog-container',
+      data: { product: productItem },
+    });
   }
 }

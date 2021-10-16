@@ -2,7 +2,7 @@
   <img width="40" alt="App Logo" src="assets/imgs/logo.jpg" />
   <span>ProductAp</span>
   <div class="spacer"></div>
-  <button mat-icon-button (click)="addNewProduct()">
+  <button mat-icon-button (click)="formProduct(newProduct)">
     <mat-icon>add_shopping_cart</mat-icon>
   </button>
 </div>
@@ -11,10 +11,21 @@
   <h2>Listado de Productos</h2>
   <p>Empieza a gestionar tus productos</p>
 
+  <button
+    mat-icon-button
+    class="refresh-button"
+    (click)="refreshListProducts()"
+  >
+    <span>Refrescar productos</span>
+    <mat-icon>refresh</mat-icon>
+  </button>
+
+  <mat-spinner *ngIf="loading"></mat-spinner>
+
   <app-product-list
     class="card-container"
     [productList]="products"
-    (action)="manageActionProduct($event)"
+    (action)="formProduct($event)"
   ></app-product-list>
   <router-outlet></router-outlet>
 </div>

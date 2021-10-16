@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Product } from 'src/app/interfaces/product-interface';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Actions } from 'src/app/shared/enums/action-product.enum';
 
 @Component({
   selector: 'app-product-register',
@@ -8,27 +9,36 @@ import { Product } from 'src/app/interfaces/product-interface';
   styleUrls: ['./product-register.component.scss'],
 })
 export class ProductRegisterComponent implements OnInit {
-  @Input() product: any;
-  @Output() action = new EventEmitter();
-
-  create: boolean = false;
+  edit: boolean = false;
   newProduct: any = {};
+  actions = {
+    create: Actions.CREATE,
+    update: Actions.UPDATE,
+    delete: Actions.DELETE,
+  };
 
   form = new FormGroup({
     date: new FormControl('', Validators.required),
     copyright: new FormControl('', Validators.required),
     title: new FormControl('', Validators.required),
-    hdurl: new FormControl('', Validators.required),
+    description: new FormControl('', Validators.required),
+    hdurl: new FormControl(''),
+    url: new FormControl(''),
+    media_type: new FormControl(''),
+    apod_site: new FormControl(''),
   });
 
-  constructor() {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialogRef: MatDialogRef<ProductRegisterComponent>
+  ) {}
 
   ngOnInit(): void {
-    this.newProduct = { ...this.product };
+    this.newProduct = { ...this.data.product };
+    this.edit = this.data.edit;
   }
 
-  manageAction() {
-    console.log(this.form);
-    this.action.emit({ product: this.newProduct });
+  manageAction(action: Actions) {
+    this.dialogRef.close({ action, product: this.newProduct });
   }
 }

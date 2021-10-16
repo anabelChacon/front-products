@@ -1,9 +1,18 @@
+<iframe
+  *ngIf="type === 'video'"
+  [class]="sizeClass"
+  [src]="url | safe"
+></iframe>
 <img
+  *ngIf="type === 'image'"
   [class]="sizeClass"
   [src]="url"
   (load)="endLoad = true"
   (error)="handleImageError($event)"
   [hidden]="!endLoad"
 />
-<mat-spinner [class]="sizeClass" [hidden]="endLoad"></mat-spinner>
-<!-- <img [class]="sizeClass" [src]="urlDefault" [hidden]="endLoad" /> -->
+<mat-spinner
+  *ngIf="type === 'image'"
+  [class]="sizeClass"
+  [hidden]="endLoad"
+></mat-spinner>

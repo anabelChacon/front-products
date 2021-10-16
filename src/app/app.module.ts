@@ -17,6 +17,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductRegisterComponent } from './components/product-register/product-register.component';
 import { ProductsService } from './services/products-service.service';
 import { LazyLoadImageComponent } from './components/lazy-load-image/lazy-load-image.component';
+import { SafePipe } from './pipes/safe.pipe';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { LazyLoadImageComponent } from './components/lazy-load-image/lazy-load-i
     DialogProductComponent,
     ProductRegisterComponent,
     LazyLoadImageComponent,
+    SafePipe,
   ],
   imports: [
     BrowserModule,

@@ -17,34 +17,68 @@
     />
   </mat-form-field>
   <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Descripción</mat-label>
+    <mat-label>Título</mat-label>
     <input matInput formControlName="title" [(ngModel)]="newProduct.title" />
   </mat-form-field>
   <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Imagen</mat-label>
+    <mat-label>Descripción</mat-label>
+    <input
+      matInput
+      formControlName="description"
+      [(ngModel)]="newProduct.description"
+    />
+  </mat-form-field>
+  <mat-form-field
+    *ngIf="newProduct.media_type === 'image'"
+    class="example-full-width"
+    appearance="fill"
+  >
+    <mat-label>Imagen listado</mat-label>
+    <input matInput formControlName="url" [(ngModel)]="newProduct.url" />
+  </mat-form-field>
+
+  <mat-form-field
+    *ngIf="newProduct.media_type === 'image'"
+    class="example-full-width"
+    appearance="fill"
+  >
+    <mat-label>Imagen detalle</mat-label>
     <input matInput formControlName="hdurl" [(ngModel)]="newProduct.hdurl" />
   </mat-form-field>
 </form>
 
 <div class="footer-actions">
-  <button mat-button [mat-dialog-close]>Cancelar</button>
+  <div>
+    <button
+      *ngIf="edit"
+      (click)="manageAction(actions.delete)"
+      mat-button
+      color="danger"
+    >
+      Eliminar
+    </button>
+  </div>
 
-  <button
-    *ngIf="!create"
-    [disabled]="!form.valid"
-    (click)="manageAction()"
-    mat-button
-    color="primary"
-  >
-    Guardar
-  </button>
-  <button
-    *ngIf="create"
-    [disabled]="!form.valid"
-    [mat-dialog-close]="newProduct"
-    mat-button
-    color="primary"
-  >
-    Crear
-  </button>
+  <div>
+    <button mat-button [mat-dialog-close]>Cancelar</button>
+
+    <button
+      *ngIf="edit"
+      [disabled]="!form.valid"
+      (click)="manageAction(actions.update)"
+      mat-button
+      color="primary"
+    >
+      Guardar
+    </button>
+    <button
+      *ngIf="!edit"
+      [disabled]="!form.valid"
+      (click)="manageAction(actions.create)"
+      mat-button
+      color="primary"
+    >
+      Crear
+    </button>
+  </div>
 </div>

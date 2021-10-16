@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { finalize } from 'rxjs/operators';
-import { DialogProductComponent } from './components/dialog-product/dialog-product.component';
+import { ProductRegisterComponent } from './components/product-register/product-register.component';
 import { Product } from './interfaces/product-interface';
 import { ProductsService } from './services/products-service.service';
+import { Actions } from './shared/enums/action-product.enum';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +13,13 @@ import { ProductsService } from './services/products-service.service';
 })
 export class AppComponent implements OnInit {
   products: any;
-  title = 'Holaa';
   loading: boolean = true;
+  newProduct = {
+    action: Actions.CREATE,
+    product: { media_type: 'image' },
+    position: null,
+    edit: false,
+  };
 
   constructor(
     private productsService: ProductsService,
@@ -21,6 +27,12 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.getListProducts();
+  }
+
+  refreshListProducts() {
+    this.loading = true;
+    this.products = null;
     this.getListProducts();
   }
 
@@ -39,30 +51,31 @@ export class AppComponent implements OnInit {
       });
   }
 
-  addNewProduct() {
+  formProduct(config: any) {
     console.log('añadir producto nuevo!');
-    const actionNew = { productItem: {}, edit: false, position: null };
-    this.manageActionProduct(actionNew);
-  }
-
-  manageActionProduct(event: any): void {
-    console.log('productItem => ', event.productItem);
-    const dialogRef = this.dialog.open(DialogProductComponent, {
-      panelClass: !event.edit
-        ? 'custom-dialog-container'
-        : 'custom-dialog-container-edit',
-      data: { productItem: event.productItem, edit: event.edit },
+    const dialogRef = this.dialog.open(ProductRegisterComponent, {
+      panelClass: 'custom-dialog-container-edit',
+      data: config,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('Resultado => ', result);
       if (result) {
-        if (event.position) {
-          this.products[event.position] = result;
-          return;
-        }
-        this.products.push(result);
+        this.manageActionProduct(config, result);
       }
     });
+  }
+
+  manageActionProduct(config: any, result: any): void {
+    switch (result.action) {
+      case Actions.CREATE:
+        this.products.unshift(result.product);
+        break;
+      case Actions.UPDATE:
+        this.products[config.position] = result.product;
+        break;
+      case Actions.DELETE:
+        this.products.splice(config.position, 1);
+        break;
+    }
   }
 }

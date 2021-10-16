@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./lazy-load-image.component.scss'],
 })
 export class LazyLoadImageComponent implements OnInit {
+  @Input() type: string;
   @Input() url: string;
   @Input() sizeClass: string;
 

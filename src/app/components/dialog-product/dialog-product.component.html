@@ -1,15 +1,10 @@
-<div class="container" *ngIf="!edit">
+<div class="container">
   <button mat-icon-button [mat-dialog-close]="product" class="close-button">
     <mat-icon>close</mat-icon>
   </button>
   <app-lazy-load-image
+    [type]="product.media_type"
     [url]="product.hdurl"
     [sizeClass]="'size-bigger'"
   ></app-lazy-load-image>
 </div>
-
-<app-product-register
-  *ngIf="edit"
-  [product]="product"
-  (action)="onManageAction($event)"
-></app-product-register>
